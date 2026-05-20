@@ -3,7 +3,6 @@
 AI-assisted training, certification, and compliance platform.
 
 > Centralizes training delivery, learner engagement, certifications, reporting, and AI-assisted content workflows.
-
 ---
 
 ## Overview
@@ -44,16 +43,18 @@ This platform centralizes training delivery, learner engagement, certifications,
 
 ## Architecture
 
-> _Insert architecture diagrams in `docs/` and reference them here._
+See [`docs/architecture.md`](docs/architecture.md) for the full cohort lifecycle, compliance loop, and AI study material diagrams.
 
-```
-[ Cohort Setup ] -> [ Learner Dashboards ] -> [ Quizzes / Certification ]
-                            |                          |
-                            v                          v
-                  [ Reminder Automation ]    [ Compliance Reporting ]
-                            |
-                            v
-                 [ AI-Generated Study Materials ]
+```mermaid
+flowchart LR
+    Admin[Admin / Coordinator] --> Cohort[Cohort Setup]
+    Cohort --> Learners[Learner Dashboards]
+    Learners --> Modules[Modules & Quizzes]
+    Modules --> Cert[Certification Engine]
+    Cohort --> Reminders[Reminder Automation]
+    Modules --> AI[AI Study Material Generator]
+    AI --> Learners
+    Cert --> Compliance[Compliance Reporting]
 ```
 
 ## Workflow Example
@@ -73,7 +74,19 @@ This platform centralizes training delivery, learner engagement, certifications,
 
 ## Screenshots
 
-> _Add cohort views, learner dashboards, and certification/reporting visuals here._
+Cohort, certification, and compliance visualizations are maintained as Mermaid diagrams in [`docs/architecture.md`](docs/architecture.md). Example: the compliance & reminder loop.
+
+```mermaid
+flowchart TD
+    Start([Learner Status Check]) --> Active{Active in Window?}
+    Active -->|Yes| Continue[Continue Tracking]
+    Active -->|No| Remind[Send Reminder]
+    Remind --> Check{Re-engaged?}
+    Check -->|Yes| Continue
+    Check -->|No| Escalate[Notify Admin]
+    Continue --> Report[Compliance Report]
+    Escalate --> Report
+```
 
 ## Lessons Learned
 
